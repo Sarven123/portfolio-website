@@ -1,6 +1,6 @@
 # Portfolio Website — Project Memory
 
-Persistent state summary for resuming work in a new session. Last updated: 2026-09-19 (after Phase 7).
+Persistent state summary for resuming work in a new session. Last updated: 2026-09-19 (after Phase 8).
 
 ## Purpose & Stack
 
@@ -22,10 +22,10 @@ Full plan lives at `~/.claude/plans/pasted-content-id-4d3d-i-want-compressed-anc
 5. Motion pass (Framer Motion entrance/scroll animations)
 6. Nav & scroll polish (active-section highlighting, scroll progress, anchor offset)
 7. Accessibility & reduced-motion pass
-8. Cross-device check ← **next**
-9. Content placeholder → real content swap (whenever ready)
+8. Cross-device check
+9. Content placeholder → real content swap (whenever ready) ← **next**
 
-## Completed Phases (1–7)
+## Completed Phases (1–8)
 
 - **Phase 1–3:** Vite scaffold, navy design tokens (`--color-*`, `--space-*`, `--text-*`, `--header-height`), full static layout — `Header`, `Footer`, `Section` (layout) + `HeroSection`, `ProjectsSection`, `AboutSection`, `ContactSection`, plus `ui/` primitives (`Button`, `SectionHeading`, `SkillBadge`, `ScrollCue`, `ProjectCard`).
 - **Phase 4:** Content moved to `src/data/profile.js` and `src/data/projects.js`. Also centralized name/socials/email there (used by Header/Footer/Hero/About/Contact) — a deliberate small scope extension beyond "hero/about only" to kill duplicated placeholder strings.
@@ -35,18 +35,19 @@ Full plan lives at `~/.claude/plans/pasted-content-id-4d3d-i-want-compressed-anc
   - New `SkipLink` component (`src/components/layout/SkipLink.jsx` + `.module.css`) — visually-hidden-until-`:focus` link, first element in `App.jsx`, targets a new `id="main-content"` + `tabIndex={-1}` on `<main>`.
   - `ProjectCard`'s "View project"/"Source" links now carry `aria-label` with the project title (`View ${title} project` / `View ${title} source code`) so repeated identical link text is distinguishable out of visual context (e.g. a screen-reader links list).
   - Reviewed `ScrollProgress`'s reduced-motion exemption (its own code comment argues it's a direct scroll-position reflection, not an autoplay animation) and confirmed it as the right call — no change made there.
+- **Phase 8:** Cross-device check — no code changes needed, everything already responsive. Verified via a mix of source review (all `@media` rules: `Header` 480px, `AboutSection`/`ProjectsSection` 768px, `ProjectsSection` 1024px) and live computed-style/overflow checks in the browser at ~500px, ~820px (2-col Projects grid confirmed), and native desktop width — no horizontal overflow, no cramped/overlapping content, grids collapse 3→2→1 and 2→1 as designed, fluid `clamp()` typography holds up, nav fits with room to spare even at the narrowest width the automation tooling could reach this session (~500px; see browser-automation caveat below on `resize_window` not reliably hitting true phone widths like 375px — compensated with an explicit box-width arithmetic check that confirmed no overflow at 375px either).
 
-## Current Status After Phase 7
+## Current Status After Phase 8
 
-Code is complete, linted, and building cleanly. All work is committed and pushed. Next unstarted phase is **Phase 8: cross-device check**.
+Code is complete, linted, and building cleanly. All work is committed and pushed. Next unstarted phase is **Phase 9: content placeholder → real content swap** (whenever the user has real projects/bio/socials ready).
 
 ## Git / GitHub Status
 
 - Local path: `/Users/sarvenavci/Documents/MyProjects/portfolio-website`
 - GitHub repo: `https://github.com/Sarven123/portfolio-website` (private), remote `origin`, branch `main`
 - Working tree: clean, local and remote in sync
-- Latest pushed commit: `8203d52` — "Phase 7: accessibility pass — skip link and distinguishable link names"
-- Commit history so far: `cf5ce7c` (initial) → `9d33351` (README) → `108912f` (Phase 4) → `6b5f3f5` (Phase 5) → `de3bfa1` (Phase 6) → `c4875d9` (project memory file) → `8203d52` (Phase 7)
+- Latest pushed commit: check `git log` — Phase 8 added only a memory-file update commit (no source changes)
+- Commit history so far: `cf5ce7c` (initial) → `9d33351` (README) → `108912f` (Phase 4) → `6b5f3f5` (Phase 5) → `de3bfa1` (Phase 6) → `c4875d9` (project memory file) → `8203d52` (Phase 7) → `e5fd0d3` (memory update) → Phase 8 memory update
 
 ## Important Implementation Decisions
 
@@ -72,12 +73,13 @@ Prefer static, code-verifiable checks over browser round-trips when the change i
 - Treat one clean verification as sufficient when there's no custom JS logic to doubt — don't chase 100% automated repro of browser-native behavior.
 - Skip re-verifying things already proven correct in earlier phases (fonts, colors, layout, scroll offset).
 
-## Exact Prompt to Start Phase 8
+## Exact Prompt to Start Phase 9
 
-> Continue with Phase 8 (cross-device check). Follow the lean workflow noted in `portfolio-website.md`.
+> Continue with Phase 9 (content placeholder → real content swap) once real project entries, bio copy, and social links are ready — swap them into `src/data/profile.js` and `src/data/projects.js`.
 
 ## Reminders
 
 - **Don't overuse browser automation.** Screenshots/JS-eval round-trips are the main token cost, not code edits — batch actions, avoid repeated re-verification of the same thing, and don't chase flaky automation artifacts (viewport drift, stray HMR reloads) as if they were app bugs.
 - **Commit and push after each stable phase**, not mid-phase — keep `git status` clean before moving on.
 - **Synthetic Tab-key presses via the Chrome-extension automation don't reliably reach page focus** (seen in Phase 7: `computer` tool's `Tab` key, sent right after a click or a fresh navigate, did not move focus into the page content — accessibility-tree order and the compiled CSS focus rule were confirmed correct by other means instead, e.g. `read_page` with `filter: "all"` for DOM/tab-order/labels, and grepping the built CSS/JS in `dist/` for the expected rules/markup). Don't burn multiple retries chasing this — verify via `read_page`/build output and, if a real visual confirmation is needed, ask the user to tab through manually.
+- **`resize_window` doesn't reliably hit the requested width in this environment** (seen in Phase 8: requesting 375px landed at 500px on one tab and requesting 768px/1024px both landed at 820px on a fresh tab — seems to clamp to some environment-imposed floor/ceiling rather than the exact target). Don't burn retries chasing an exact pixel width; treat whatever width you actually land at as a valid data point (check `window.innerWidth` after each resize), pick a few naturally-reachable widths that straddle the breakpoints you care about, and fall back to arithmetic (element widths vs. container width from `getBoundingClientRect`) for widths the tool won't reach. Ask the user to spot-check true phone-width (e.g. real device or a manual DevTools resize) if exact-width confirmation is ever critical.
