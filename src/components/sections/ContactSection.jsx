@@ -1,6 +1,7 @@
 import Section from '../layout/Section'
 import SectionHeading from '../ui/SectionHeading'
 import Button from '../ui/Button'
+import { profile } from '../../data/profile'
 import styles from './ContactSection.module.css'
 
 function ContactSection() {
@@ -9,14 +10,14 @@ function ContactSection() {
       <SectionHeading
         eyebrow="Get in touch"
         title="Let's build something."
-        description="Placeholder contact prompt — swap in your real email and socials."
+        description={profile.contact.prompt}
       />
       <div className={styles.actions}>
-        <Button href="mailto:you@example.com">Email me</Button>
-        <Button href="#" variant="ghost">
+        <Button href={`mailto:${profile.contact.email}`}>Email me</Button>
+        <Button href={profile.socials.github} variant="ghost">
           GitHub
         </Button>
-        <Button href="#" variant="ghost">
+        <Button href={profile.socials.linkedin} variant="ghost">
           LinkedIn
         </Button>
       </div>

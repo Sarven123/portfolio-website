@@ -1,10 +1,14 @@
 import Button from './Button'
 import styles from './ProjectCard.module.css'
 
-function ProjectCard({ title, description, tags = [], link, repo }) {
+function ProjectCard({ title, description, tags = [], image, link, repo }) {
   return (
     <article className={styles.card}>
-      <div className={styles.media} aria-hidden="true" />
+      {image ? (
+        <img src={image} alt={`${title} preview`} className={styles.media} />
+      ) : (
+        <div className={styles.media} aria-hidden="true" />
+      )}
       <div className={styles.body}>
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.description}>{description}</p>

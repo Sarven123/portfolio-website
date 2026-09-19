@@ -1,3 +1,4 @@
+import { profile } from '../../data/profile'
 import styles from './Header.module.css'
 
 const NAV_LINKS = [
@@ -11,7 +12,7 @@ function Header() {
     <header className={styles.header}>
       <div className={styles.inner}>
         <a href="#hero" className={styles.logo}>
-          Your Name
+          {profile.name}
         </a>
         <nav className={styles.nav} aria-label="Primary">
           {NAV_LINKS.map((link) => (
