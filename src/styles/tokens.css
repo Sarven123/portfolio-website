@@ -52,6 +52,7 @@
   --content-max-width: 72rem;
   --section-padding-inline: clamp(1.25rem, 4vw, 3rem);
   --section-padding-block: clamp(4rem, 10vw, 8rem);
+  --header-height: 4.5rem;
 
   /* Effects */
   --radius-sm: 6px;

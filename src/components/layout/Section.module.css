@@ -3,6 +3,7 @@
   width: 100%;
   padding-block: var(--section-padding-block);
   padding-inline: var(--section-padding-inline);
+  scroll-margin-top: var(--header-height);
 }
 
 .inner {
