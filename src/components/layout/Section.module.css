@@ -1,0 +1,12 @@
+.section {
+  position: relative;
+  width: 100%;
+  padding-block: var(--section-padding-block);
+  padding-inline: var(--section-padding-inline);
+}
+
+.inner {
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+  width: 100%;
+}
