@@ -1,6 +1,6 @@
 export const profile = {
   name: 'Sarven',
-  //role: 'Frontend Developer & Creative Technologist',
+  role: 'Student',
   eyebrow: "Hi, I'm",
   intro:
     'I build fast, thoughtful projects.',
