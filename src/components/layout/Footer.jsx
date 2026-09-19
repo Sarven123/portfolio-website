@@ -11,11 +11,13 @@ function Footer() {
           © {YEAR} {profile.name}. All rights reserved.
         </p>
         <div className={styles.socials}>
-          <a href={profile.socials.github} className={styles.link}>
+          <a
+            href={`https://github.com/${profile.socials.github}`}
+            className={styles.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             GitHub
-          </a>
-          <a href={profile.socials.linkedin} className={styles.link}>
-            LinkedIn
           </a>
           <a href={`mailto:${profile.contact.email}`} className={styles.link}>
             Email

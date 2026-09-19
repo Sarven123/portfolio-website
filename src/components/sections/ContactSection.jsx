@@ -14,11 +14,13 @@ function ContactSection() {
       />
       <div className={styles.actions}>
         <Button href={`mailto:${profile.contact.email}`}>Email me</Button>
-        <Button href={profile.socials.github} variant="ghost">
+        <Button
+          href={`https://github.com/${profile.socials.github}`}
+          variant="ghost"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           GitHub
-        </Button>
-        <Button href={profile.socials.linkedin} variant="ghost">
-          LinkedIn
         </Button>
       </div>
     </Section>
