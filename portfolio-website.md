@@ -46,24 +46,24 @@ Fixed narrowly scoped, in `Footer.jsx` and `ContactSection.jsx` only (no data fi
 - GitHub links/buttons now build the full URL inline — `` `https://github.com/${profile.socials.github}` `` — matching the existing inline `` `mailto:${profile.contact.email}` `` convention already used for Email — and open with `target="_blank" rel="noopener noreferrer"`.
 - Email button/link was already a working `mailto:` link; no change needed there.
 
-This `profile.js` content swap (name, bio, skills, email, GitHub username) is now committed — see Phase 9 note below. Also worth flagging: `role:` is commented out in `profile.js` (rather than deleted), and `HeroSection.jsx` still renders `{profile.role}` — so the hero currently shows an empty role line. Not fixed (out of scope for the LinkedIn/button task), just noted for whenever Phase 9 content work continues.
+This `profile.js` content swap (name, bio, skills, email, GitHub username) is now committed — see Phase 9 note below.
 
 ## Phase 9 (in progress): content placeholder → real content swap
 
-- `src/data/profile.js` real content committed: name, eyebrow/intro, bio (2 real paragraphs), skills list, contact email, GitHub username. Still placeholder: `resumeUrl: '#'`, and `role` is commented out (leaves `HeroSection`'s role line blank — see note above).
-- `src/data/projects.js` is still all placeholder ("Project One/Two/Three") — not yet swapped.
+- `src/data/profile.js` real content committed: name, role (`'Student'`), eyebrow/intro, bio (2 real paragraphs), skills list, contact email, GitHub username. Still placeholder: `resumeUrl: '#'`.
+- `src/data/projects.js` is still all placeholder ("Project One/Two/Three") — not yet swapped (user doesn't have real project entries ready yet, as of 2026-09-19).
 
 ## Current Status
 
-Code is complete, linted, and building cleanly. Everything through the Phase 9 profile-content commit is pushed. Working tree is clean. Remaining Phase 9 work: real `projects.js` entries, a decision on `role`/`resumeUrl`.
+Code is complete, linted, and building cleanly. Everything through the Phase 9 profile-content commit is pushed. Working tree is clean. Remaining Phase 9 work: real `projects.js` entries, and a decision on `resumeUrl` (whenever ready — not blocking anything else).
 
 ## Git / GitHub Status
 
 - Local path: `/Users/sarvenavci/Documents/MyProjects/portfolio-website`
 - GitHub repo: `https://github.com/Sarven123/portfolio-website` (private), remote `origin`, branch `main`
 - Working tree: clean, local and remote in sync
-- Latest pushed commit: `48531e8` — "Phase 9: swap in real profile content"
-- Commit history so far: `cf5ce7c` (initial) → `9d33351` (README) → `108912f` (Phase 4) → `6b5f3f5` (Phase 5) → `de3bfa1` (Phase 6) → `c4875d9` (project memory file) → `8203d52` (Phase 7) → `e5fd0d3` (memory update) → `a93ab1d` (Phase 8) → `ef5260d` (memory fix) → `60dd23f` (LinkedIn removal + functional buttons) → `edd5b80` (memory update) → `48531e8` (Phase 9 profile content)
+- Latest pushed commit: `06ecf5f` — "Phase 9: add role to profile content"
+- Commit history so far: `cf5ce7c` (initial) → `9d33351` (README) → `108912f` (Phase 4) → `6b5f3f5` (Phase 5) → `de3bfa1` (Phase 6) → `c4875d9` (project memory file) → `8203d52` (Phase 7) → `e5fd0d3` (memory update) → `a93ab1d` (Phase 8) → `ef5260d` (memory fix) → `60dd23f` (LinkedIn removal + functional buttons) → `edd5b80` (memory update) → `48531e8` (Phase 9 profile content) → `403831b` (memory update) → `06ecf5f` (Phase 9 role)
 
 ## Important Implementation Decisions
 
