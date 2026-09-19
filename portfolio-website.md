@@ -60,10 +60,22 @@ Code is complete, linted, and building cleanly. Everything through the Phase 9 p
 ## Git / GitHub Status
 
 - Local path: `/Users/sarvenavci/Documents/MyProjects/portfolio-website`
-- GitHub repo: `https://github.com/Sarven123/portfolio-website` (private), remote `origin`, branch `main`
+- GitHub repo: `https://github.com/Sarven123/portfolio-website` (**public** as of 2026-09-19), remote `origin`, branch `main`
 - Working tree: clean, local and remote in sync
 - Latest pushed commit: `06ecf5f` — "Phase 9: add role to profile content"
 - Commit history so far: `cf5ce7c` (initial) → `9d33351` (README) → `108912f` (Phase 4) → `6b5f3f5` (Phase 5) → `de3bfa1` (Phase 6) → `c4875d9` (project memory file) → `8203d52` (Phase 7) → `e5fd0d3` (memory update) → `a93ab1d` (Phase 8) → `ef5260d` (memory fix) → `60dd23f` (LinkedIn removal + functional buttons) → `edd5b80` (memory update) → `48531e8` (Phase 9 profile content) → `403831b` (memory update) → `06ecf5f` (Phase 9 role)
+
+## Public-Visibility Security Review (2026-09-19)
+
+Before making the repo public, ran a full audit — result: **clean, no changes needed**.
+
+- **Secrets/credentials:** grepped working tree + full `git log --all -p` history for API keys, tokens, passwords, private-key headers, and known cloud-provider key patterns (AWS, GitHub PAT, Google, Slack) — no matches. The only hits for words like "secret"/"token" were `.gitignore` entries and unrelated design-"tokens" terminology.
+- **File-history diff:** compared the set of files ever added across all commits (`git log --all --diff-filter=A`) against currently tracked files — identical sets, so nothing sensitive was ever committed and later removed (which would still be exposed via history).
+- **`.gitignore`:** already correctly excludes `node_modules`, `dist`/`dist-ssr`, `.env`/`.env.*`, `*.pem`/`*.key`/`*.cert`, `secrets.json`, `credentials.json`, and OS/editor cruft.
+- **Personal info:** `src/data/profile.js` has name, age/university, bio, skills, and a contact email — all intentional, public-facing portfolio content (the point of the site), not an inadvertent leak.
+- **Large/generated files:** no blobs over 500KB anywhere in history.
+- **Build:** `npm run build` succeeds cleanly (455 modules, no errors) — verified after review, before flipping visibility.
+- **Outcome:** repository visibility changed from private → public via `gh repo edit --visibility public`; no cleanup commits were necessary since nothing unsafe was found.
 
 ## Important Implementation Decisions
 
@@ -77,7 +89,7 @@ Code is complete, linted, and building cleanly. Everything through the Phase 9 p
 - No TypeScript — plain `.jsx`/`.js` only.
 - No backend, auth, database, or deployment — local dev only.
 - Don't add abstractions/refactors beyond what's asked; e.g., Header/Footer's small duplicated centering CSS was left as-is rather than extracted.
-- Git workflow (standing rule, see `[[portfolio-git-workflow]]` memory): checkpoint commit before each phase, commit+push after each completed phase, never destructive git commands without explicit approval, never commit secrets/`.env`/`node_modules`, keep repo private unless told otherwise.
+- Git workflow (standing rule, see `[[portfolio-git-workflow]]` memory): checkpoint commit before each phase, commit+push after each completed phase, never destructive git commands without explicit approval, never commit secrets/`.env`/`node_modules`. Repo is now public (as of 2026-09-19, after a clean security review) — no code/design changes to accommodate that beyond the review itself.
 
 ## Lean Workflow Rule (general)
 
