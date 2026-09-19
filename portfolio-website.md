@@ -46,8 +46,8 @@ Code is complete, linted, and building cleanly. All work is committed and pushed
 - Local path: `/Users/sarvenavci/Documents/MyProjects/portfolio-website`
 - GitHub repo: `https://github.com/Sarven123/portfolio-website` (private), remote `origin`, branch `main`
 - Working tree: clean, local and remote in sync
-- Latest pushed commit: check `git log` — Phase 8 added only a memory-file update commit (no source changes)
-- Commit history so far: `cf5ce7c` (initial) → `9d33351` (README) → `108912f` (Phase 4) → `6b5f3f5` (Phase 5) → `de3bfa1` (Phase 6) → `c4875d9` (project memory file) → `8203d52` (Phase 7) → `e5fd0d3` (memory update) → Phase 8 memory update
+- Latest pushed commit: `a93ab1d` — "Phase 8: cross-device check — verified, no code changes needed" (memory-file update only, no source changes)
+- Commit history so far: `cf5ce7c` (initial) → `9d33351` (README) → `108912f` (Phase 4) → `6b5f3f5` (Phase 5) → `de3bfa1` (Phase 6) → `c4875d9` (project memory file) → `8203d52` (Phase 7) → `e5fd0d3` (memory update) → `a93ab1d` (Phase 8)
 
 ## Important Implementation Decisions
 
