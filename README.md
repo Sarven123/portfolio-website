@@ -1,16 +1,78 @@
-# React + Vite
+# Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A single, long-scroll personal portfolio site: hero introduction, projects, and
+an about section flow together as one continuous experience rather than
+separate pages. Built with React (JavaScript, no TypeScript) and Vite, styled
+with CSS Modules on top of a small dark-navy design-token system, with Framer
+Motion for scroll-based transitions.
 
-Currently, two official plugins are available:
+This project currently runs locally only — there is no hosting or deployment
+step yet.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Install dependencies
 
-## React Compiler
+```bash
+npm install
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Run it locally
 
-## Expanding the Oxlint configuration
+```bash
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Then open the URL Vite prints (typically `http://localhost:5173`). The dev
+server supports hot module reloading, so edits show up immediately.
+
+## Create a production build
+
+```bash
+npm run build
+```
+
+Output is written to `dist/`. Preview that build locally with:
+
+```bash
+npm run preview
+```
+
+## Check Git status
+
+```bash
+git status        # see what's changed/staged
+git log --oneline # see recent commit history
+git diff          # see unstaged changes in detail
+```
+
+## Restore an earlier commit safely
+
+To look at an old commit without losing current work:
+
+```bash
+git log --oneline          # find the commit hash you want
+git stash                  # (optional) shelve any uncommitted changes first
+git checkout <commit-hash> # inspect that commit in a detached HEAD state
+git checkout main          # return to the latest work when done
+```
+
+To undo the most recent commit but keep the changes staged for editing:
+
+```bash
+git reset --soft HEAD~1
+```
+
+Avoid `git reset --hard` or `git clean -fd` unless you're certain you want to
+permanently discard uncommitted work — prefer `git stash` or a new commit
+instead, since those are reversible.
+
+## Project structure
+
+```
+src/
+  components/
+    layout/    -- Header, Footer, Section (shared page chrome)
+    sections/  -- HeroSection, ProjectsSection, AboutSection, ContactSection
+    ui/        -- Button, ProjectCard, SectionHeading, SkillBadge, ScrollCue
+  data/        -- profile.js, projects.js (content, kept separate from components)
+  styles/      -- tokens.css (design tokens: color, type scale, spacing)
+```
