@@ -1,0 +1,11 @@
+.glow {
+  position: fixed;
+  left: 50%;
+  z-index: -1;
+  width: min(70rem, 140vw);
+  height: min(70rem, 140vw);
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, var(--color-accent-soft), transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}

@@ -1,8 +1,21 @@
+import { motion } from 'framer-motion'
 import Section from '../layout/Section'
 import SectionHeading from '../ui/SectionHeading'
 import ProjectCard from '../ui/ProjectCard'
 import { projects } from '../../data/projects'
 import styles from './ProjectsSection.module.css'
+
+const gridVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.12 },
+  },
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+}
 
 function ProjectsSection() {
   return (
@@ -12,11 +25,19 @@ function ProjectsSection() {
         title="Projects"
         description="A few things I've built — placeholder entries until real projects are added."
       />
-      <div className={styles.grid}>
+      <motion.div
+        className={styles.grid}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-100px' }}
+        variants={gridVariants}
+      >
         {projects.map((project) => (
-          <ProjectCard key={project.id} {...project} />
+          <motion.div key={project.id} variants={cardVariants}>
+            <ProjectCard {...project} />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </Section>
   )
 }

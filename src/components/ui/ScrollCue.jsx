@@ -1,10 +1,19 @@
+import { motion, useReducedMotion } from 'framer-motion'
 import styles from './ScrollCue.module.css'
 
-// Static for now — gains a scroll-linked animation in the motion pass (Phase 5).
 function ScrollCue({ targetId }) {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
     <a href={`#${targetId}`} className={styles.cue} aria-label="Scroll to next section">
-      <span className={styles.line} aria-hidden="true" />
+      <motion.span
+        className={styles.line}
+        aria-hidden="true"
+        animate={
+          shouldReduceMotion ? undefined : { y: [0, 8, 0], opacity: [1, 0.4, 1] }
+        }
+        transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+      />
       <span className={styles.label}>Scroll</span>
     </a>
   )
