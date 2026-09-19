@@ -1,6 +1,6 @@
 # Portfolio Website — Project Memory
 
-Persistent state summary for resuming work in a new session. Last updated: 2026-09-19 (after Phase 8).
+Persistent state summary for resuming work in a new session. Last updated: 2026-09-19 (after Phase 8 + a targeted post-Phase-8 fix).
 
 ## Purpose & Stack
 
@@ -37,17 +37,28 @@ Full plan lives at `~/.claude/plans/pasted-content-id-4d3d-i-want-compressed-anc
   - Reviewed `ScrollProgress`'s reduced-motion exemption (its own code comment argues it's a direct scroll-position reflection, not an autoplay animation) and confirmed it as the right call — no change made there.
 - **Phase 8:** Cross-device check — no code changes needed, everything already responsive. Verified via a mix of source review (all `@media` rules: `Header` 480px, `AboutSection`/`ProjectsSection` 768px, `ProjectsSection` 1024px) and live computed-style/overflow checks in the browser at ~500px, ~820px (2-col Projects grid confirmed), and native desktop width — no horizontal overflow, no cramped/overlapping content, grids collapse 3→2→1 and 2→1 as designed, fluid `clamp()` typography holds up, nav fits with room to spare even at the narrowest width the automation tooling could reach this session (~500px; see browser-automation caveat below on `resize_window` not reliably hitting true phone widths like 375px — compensated with an explicit box-width arithmetic check that confirmed no overflow at 375px either).
 
-## Current Status After Phase 8
+## Post-Phase-8 Fix: LinkedIn removal + functional Contact/Footer buttons
 
-Code is complete, linted, and building cleanly. All work is committed and pushed. Next unstarted phase is **Phase 9: content placeholder → real content swap** (whenever the user has real projects/bio/socials ready).
+The user had already started swapping in real content directly into `src/data/profile.js` (name, bio, skills, email, GitHub username) ahead of formal Phase 9, leaving `socials.linkedin` absent and `socials.github` as a bare username (`'Sarven123'`, not a URL) — which left the LinkedIn buttons pointing at `undefined` and the GitHub buttons pointing at an invalid relative path.
+
+Fixed narrowly scoped, in `Footer.jsx` and `ContactSection.jsx` only (no data file changes needed — LinkedIn was already absent from the data, so removal was just deleting the two dead JSX links/buttons that still referenced it):
+- Removed every LinkedIn link/button from `Footer` and `ContactSection` — both were plain flex-row children, so removing them was layout-safe (no empty gap left behind).
+- GitHub links/buttons now build the full URL inline — `` `https://github.com/${profile.socials.github}` `` — matching the existing inline `` `mailto:${profile.contact.email}` `` convention already used for Email — and open with `target="_blank" rel="noopener noreferrer"`.
+- Email button/link was already a working `mailto:` link; no change needed there.
+
+**Note:** `src/data/profile.js` still has real content sitting uncommitted in the working tree (the user's own in-progress Phase-9-style swap, done outside a commit) — intentionally left untouched and unstaged by this fix, since it's unrelated to the LinkedIn/button task. Also worth flagging: the user commented out `role:` in that uncommitted `profile.js` (rather than deleting it), and `HeroSection.jsx` still renders `{profile.role}` — so the hero currently shows an empty role line. Not fixed (out of scope for this task), just noted for whenever Phase 9 content work resumes.
+
+## Current Status
+
+Code is complete, linted, and building cleanly. All Phase 1–8 work plus this post-Phase-8 fix is committed and pushed. `profile.js`'s content-swap edits remain uncommitted (see note above). Next unstarted phase is **Phase 9: content placeholder → real content swap** (partially underway already via the uncommitted `profile.js` edits).
 
 ## Git / GitHub Status
 
 - Local path: `/Users/sarvenavci/Documents/MyProjects/portfolio-website`
 - GitHub repo: `https://github.com/Sarven123/portfolio-website` (private), remote `origin`, branch `main`
-- Working tree: clean, local and remote in sync
-- Latest pushed commit: `a93ab1d` — "Phase 8: cross-device check — verified, no code changes needed" (memory-file update only, no source changes)
-- Commit history so far: `cf5ce7c` (initial) → `9d33351` (README) → `108912f` (Phase 4) → `6b5f3f5` (Phase 5) → `de3bfa1` (Phase 6) → `c4875d9` (project memory file) → `8203d52` (Phase 7) → `e5fd0d3` (memory update) → `a93ab1d` (Phase 8)
+- Working tree: **not clean** — `src/data/profile.js` has uncommitted content-swap edits (see note above); everything else is clean and in sync with `origin/main`
+- Latest pushed commit: `60dd23f` — "Remove LinkedIn and make Contact/Footer buttons functional"
+- Commit history so far: `cf5ce7c` (initial) → `9d33351` (README) → `108912f` (Phase 4) → `6b5f3f5` (Phase 5) → `de3bfa1` (Phase 6) → `c4875d9` (project memory file) → `8203d52` (Phase 7) → `e5fd0d3` (memory update) → `a93ab1d` (Phase 8) → `ef5260d` (memory fix) → `60dd23f` (LinkedIn removal + functional buttons)
 
 ## Important Implementation Decisions
 
