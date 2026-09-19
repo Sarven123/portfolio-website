@@ -1,4 +1,5 @@
 import { MotionConfig } from 'framer-motion'
+import SkipLink from './components/layout/SkipLink'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import ScrollGlow from './components/layout/ScrollGlow'
@@ -11,10 +12,11 @@ import ContactSection from './components/sections/ContactSection'
 function App() {
   return (
     <MotionConfig reducedMotion="user">
+      <SkipLink />
       <ScrollGlow />
       <ScrollProgress />
       <Header />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <HeroSection />
         <ProjectsSection />
         <AboutSection />

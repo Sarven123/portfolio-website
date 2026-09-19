@@ -21,12 +21,12 @@ function ProjectCard({ title, description, tags = [], image, link, repo }) {
         )}
         <div className={styles.links}>
           {link && (
-            <Button href={link} variant="ghost">
+            <Button href={link} variant="ghost" aria-label={`View ${title} project`}>
               View project
             </Button>
           )}
           {repo && (
-            <a href={repo} className={styles.repoLink}>
+            <a href={repo} className={styles.repoLink} aria-label={`View ${title} source code`}>
               Source
             </a>
           )}
