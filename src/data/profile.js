@@ -1,21 +1,20 @@
 export const profile = {
-  name: 'Your Name',
-  role: 'Frontend Developer & Creative Technologist',
+  name: 'Sarven',
+  //role: 'Frontend Developer & Creative Technologist',
   eyebrow: "Hi, I'm",
   intro:
-    'I build fast, thoughtful web experiences — placeholder intro copy to be replaced with your own pitch.',
+    'I build fast, thoughtful projects.',
   bio: [
-    'Placeholder bio paragraph one — replace with your real background, what drew you to development, and the kind of work you enjoy.',
-    'Placeholder bio paragraph two — mention experience, notable roles, or a personal detail that makes the page feel like you.',
+    "I'm 19 years old and I'm a student at the TU Darmstadt. I have a passion for creating things, and I'm always looking to learn new technologies and improve my skills.",
+    "I'm always looking for new ways to challenge myself and grow as a developer. I'm currently looking for an internship or a full-time position in the field of software development.",
   ],
-  skills: ['JavaScript', 'React', 'CSS', 'Node.js', 'Figma', 'Accessibility'],
+  skills: ['JavaScript', 'React', 'CSS', 'C#', 'Python', 'Accessibility',],
   resumeUrl: '#',
   contact: {
-    prompt: "Placeholder contact prompt — swap in your real email and socials.",
-    email: 'you@example.com',
+    //prompt: "",
+    email: 'sarvenavc@gmail.com',
   },
   socials: {
-    github: '#',
-    linkedin: '#',
+    github: 'Sarven123',
   },
 }
