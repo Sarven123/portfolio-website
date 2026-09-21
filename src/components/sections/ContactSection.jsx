@@ -13,7 +13,13 @@ function ContactSection() {
         description={profile.contact.prompt}
       />
       <div className={styles.actions}>
-        <Button href={`mailto:${profile.contact.email}`}>Email me</Button>
+        <Button
+          href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profile.contact.email)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Email me
+        </Button>
         <Button
           href={`https://github.com/${profile.socials.github}`}
           variant="ghost"

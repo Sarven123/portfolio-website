@@ -19,7 +19,12 @@ function Footer() {
           >
             GitHub
           </a>
-          <a href={`mailto:${profile.contact.email}`} className={styles.link}>
+          <a
+            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profile.contact.email)}`}
+            className={styles.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Email
           </a>
         </div>
