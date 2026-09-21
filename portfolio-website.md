@@ -1,6 +1,6 @@
 # Portfolio Website — Project Memory
 
-Persistent state summary for resuming work in a new session. Last updated: 2026-09-19 (after Phase 8 + a targeted post-Phase-8 fix).
+Persistent state summary for resuming work in a new session. Last updated: 2026-09-21 (Railway deployment + Email link fix).
 
 ## Purpose & Stack
 
@@ -44,7 +44,7 @@ The user had already started swapping in real content directly into `src/data/pr
 Fixed narrowly scoped, in `Footer.jsx` and `ContactSection.jsx` only (no data file changes needed — LinkedIn was already absent from the data, so removal was just deleting the two dead JSX links/buttons that still referenced it):
 - Removed every LinkedIn link/button from `Footer` and `ContactSection` — both were plain flex-row children, so removing them was layout-safe (no empty gap left behind).
 - GitHub links/buttons now build the full URL inline — `` `https://github.com/${profile.socials.github}` `` — matching the existing inline `` `mailto:${profile.contact.email}` `` convention already used for Email — and open with `target="_blank" rel="noopener noreferrer"`.
-- Email button/link was already a working `mailto:` link; no change needed there.
+- Email button/link was already a working `mailto:` link at the time — later replaced with a Gmail-compose link, see "Email Link Fix" below.
 
 This `profile.js` content swap (name, bio, skills, email, GitHub username) is now committed — see Phase 9 note below.
 
@@ -55,15 +55,15 @@ This `profile.js` content swap (name, bio, skills, email, GitHub username) is no
 
 ## Current Status
 
-Code is complete, linted, and building cleanly. Real `projects.js` entries (Digest News, Expense Tracker) are in, and the site is deployed live on Railway. Working tree is clean. Remaining: a decision on `resumeUrl` (whenever ready — not blocking anything else).
+Code is complete, linted, and building cleanly. Real `projects.js` entries (Digest News, Expense Tracker) are in, and the site is deployed live on Railway. Email links now open Gmail compose instead of `mailto:` (see below). Working tree is clean, all pushed. Remaining: a decision on `resumeUrl` (whenever ready — not blocking anything else); user was mid-verification of the email-link fix in Incognito when this session ended — see "Email Link Fix" below for status.
 
 ## Git / GitHub Status
 
 - Local path: `/Users/sarvenavci/Documents/MyProjects/portfolio-website`
 - GitHub repo: `https://github.com/Sarven123/portfolio-website` (**public** as of 2026-09-19), remote `origin`, branch `main`
 - Working tree: clean, local and remote in sync
-- Latest pushed commit: `5041a1d` — "Pin Node engine to >=22.12 for Railway builds"
-- Commit history so far: `cf5ce7c` (initial) → `9d33351` (README) → `108912f` (Phase 4) → `6b5f3f5` (Phase 5) → `de3bfa1` (Phase 6) → `c4875d9` (project memory file) → `8203d52` (Phase 7) → `e5fd0d3` (memory update) → `a93ab1d` (Phase 8) → `ef5260d` (memory fix) → `60dd23f` (LinkedIn removal + functional buttons) → `edd5b80` (memory update) → `48531e8` (Phase 9 profile content) → `403831b` (memory update) → `06ecf5f` (Phase 9 role) → `807315a` (memory update) → `ad9eb49` (security review memory) → `dff5287` (real projects + Railway config) → `5041a1d` (Node engine pin fix)
+- Latest pushed commit: `4133fa1` — "Open Gmail compose instead of mailto for Email links"
+- Commit history so far: `cf5ce7c` (initial) → `9d33351` (README) → `108912f` (Phase 4) → `6b5f3f5` (Phase 5) → `de3bfa1` (Phase 6) → `c4875d9` (project memory file) → `8203d52` (Phase 7) → `e5fd0d3` (memory update) → `a93ab1d` (Phase 8) → `ef5260d` (memory fix) → `60dd23f` (LinkedIn removal + functional buttons) → `edd5b80` (memory update) → `48531e8` (Phase 9 profile content) → `403831b` (memory update) → `06ecf5f` (Phase 9 role) → `807315a` (memory update) → `ad9eb49` (security review memory) → `dff5287` (real projects + Railway config) → `5041a1d` (Node engine pin fix) → `079119f` (Railway memory doc) → `4133fa1` (Gmail-compose email links)
 
 ## Railway Deployment (2026-09-21)
 
@@ -72,6 +72,15 @@ Code is complete, linted, and building cleanly. Real `projects.js` entries (Dige
 - This is a static Vite SPA (no backend), unlike news-digest's Node server. Deploy shape: `railway.json` sets `buildCommand: npm run build`; `npm start` runs `serve -s dist -l $PORT` (added the `serve` package as a dependency for this).
 - Had to pin `"engines": { "node": ">=22.12.0" }` in `package.json` — Railway's Nixpacks defaulted to Node 18, and Vite 8 requires Node ^20.19 or >=22.12; first deploy failed on a `node:util` `styleText` import error until this was added.
 - `railway.json` (Config as Code) is flagged deprecated in favor of `.railway/railway.ts` (Infrastructure as Code), but still supported until 2026-12-01 — left as-is to match news-digest's existing setup rather than migrating both now.
+
+## Email Link Fix (2026-09-21)
+
+User's OS/browser handed `mailto:` links off to Opera (an unwanted app-switch), so both email links were changed from `mailto:${profile.contact.email}` to a Gmail-compose deep link: `` `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profile.contact.email)}` ``, opened with `target="_blank" rel="noopener noreferrer"`. Changed in two places: `ContactSection.jsx`'s "Email me" button and `Footer.jsx`'s "Email" link (kept consistent rather than fixing only the one the user named).
+
+- Verified locally (dev server + browser automation): clicking opens a new tab at `mail.google.com/mail/u/0/?fs=1&to=...&tf=cm`, no `mailto:` involved.
+- Verified on the live Railway deployment: fetched the deployed JS bundle directly and grepped it — zero occurrences of `mailto:`, both links correctly reference `mail.google.com`. Confirms Railway is not stale and the GitHub→Railway auto-deploy pipeline is working correctly.
+- User reported Opera *still* opened after this was live, tested in Chrome with Opera fully closed — that specific symptom (a separate browser app launching, not just a new tab) is the signature of a `mailto:` OS-level handoff, which is inconsistent with the deployed code. Strongly points to a stale cached page/tab in the user's browser rather than a real bug. User was about to retest in an Incognito window (guarantees no cache) when the session ended.
+- **If this comes up again in a future session:** check first whether the user actually confirmed the Incognito test result. If Opera still opens even in a fresh Incognito tab against the live Railway URL, that would mean the deployed code itself is wrong (re-verify with the bundle-grep technique above) — but if Incognito fixed it, the mailto: fix is confirmed working and this section can be marked resolved.
 
 ## Public-Visibility Security Review (2026-09-19)
 
