@@ -23,7 +23,7 @@ function ProjectsSection() {
       <SectionHeading
         eyebrow="Selected work"
         title="Projects"
-        description="A few things I've built — placeholder entries until real projects are added."
+        description="A few things I've built."
       />
       <motion.div
         className={styles.grid}

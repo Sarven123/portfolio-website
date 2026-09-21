@@ -3,36 +3,25 @@
 // at a file in /public (e.g. "/projects/project-one.jpg") once you have one.
 export const projects = [
   {
-    id: 'project-one',
-    title: 'Project One',
+    id: 'digest-news',
+    title: 'Digest News',
     description:
-      'A short placeholder summary of what this project does and why it matters.',
-    tags: ['React', 'Node'],
-    image: null,
-    link: '#',
+      'Type in the topics you want to follow and Digest News reads the day’s coverage and summarizes it for you, so you can stay informed without trawling headlines yourself. Live demo requires a login — message me for credentials.',
+    tags: ['React', 'TypeScript'],
+    image: '/projects/digest-news.jpg',
+    link: 'https://news-digest-production-a025.up.railway.app/',
     repo: null,
     featured: true,
   },
   {
-    id: 'project-two',
-    title: 'Project Two',
+    id: 'expense-tracker',
+    title: 'Expense Tracker',
     description:
-      'Another placeholder project description — swap in real work later.',
-    tags: ['JavaScript', 'CSS'],
-    image: null,
-    link: '#',
-    repo: null,
-    featured: false,
-  },
-  {
-    id: 'project-three',
-    title: 'Project Three',
-    description:
-      'A third placeholder entry to preview the grid at three columns.',
-    tags: ['Vite', 'Design'],
-    image: null,
-    link: '#',
-    repo: '#',
-    featured: false,
+      'A macOS app for keeping every expense and asset in one place, built to make it easy to track spending without juggling spreadsheets.',
+    tags: ['SwiftUI', 'macOS'],
+    image: '/projects/expense-tracker.jpg',
+    link: null,
+    repo: 'https://github.com/Sarven123/PersonalExpenseTracker',
+    featured: true,
   },
 ]
