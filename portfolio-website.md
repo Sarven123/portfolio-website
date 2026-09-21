@@ -55,15 +55,23 @@ This `profile.js` content swap (name, bio, skills, email, GitHub username) is no
 
 ## Current Status
 
-Code is complete, linted, and building cleanly. Everything through the Phase 9 profile-content commit is pushed. Working tree is clean. Remaining Phase 9 work: real `projects.js` entries, and a decision on `resumeUrl` (whenever ready — not blocking anything else).
+Code is complete, linted, and building cleanly. Real `projects.js` entries (Digest News, Expense Tracker) are in, and the site is deployed live on Railway. Working tree is clean. Remaining: a decision on `resumeUrl` (whenever ready — not blocking anything else).
 
 ## Git / GitHub Status
 
 - Local path: `/Users/sarvenavci/Documents/MyProjects/portfolio-website`
 - GitHub repo: `https://github.com/Sarven123/portfolio-website` (**public** as of 2026-09-19), remote `origin`, branch `main`
 - Working tree: clean, local and remote in sync
-- Latest pushed commit: `06ecf5f` — "Phase 9: add role to profile content"
-- Commit history so far: `cf5ce7c` (initial) → `9d33351` (README) → `108912f` (Phase 4) → `6b5f3f5` (Phase 5) → `de3bfa1` (Phase 6) → `c4875d9` (project memory file) → `8203d52` (Phase 7) → `e5fd0d3` (memory update) → `a93ab1d` (Phase 8) → `ef5260d` (memory fix) → `60dd23f` (LinkedIn removal + functional buttons) → `edd5b80` (memory update) → `48531e8` (Phase 9 profile content) → `403831b` (memory update) → `06ecf5f` (Phase 9 role)
+- Latest pushed commit: `5041a1d` — "Pin Node engine to >=22.12 for Railway builds"
+- Commit history so far: `cf5ce7c` (initial) → `9d33351` (README) → `108912f` (Phase 4) → `6b5f3f5` (Phase 5) → `de3bfa1` (Phase 6) → `c4875d9` (project memory file) → `8203d52` (Phase 7) → `e5fd0d3` (memory update) → `a93ab1d` (Phase 8) → `ef5260d` (memory fix) → `60dd23f` (LinkedIn removal + functional buttons) → `edd5b80` (memory update) → `48531e8` (Phase 9 profile content) → `403831b` (memory update) → `06ecf5f` (Phase 9 role) → `807315a` (memory update) → `ad9eb49` (security review memory) → `dff5287` (real projects + Railway config) → `5041a1d` (Node engine pin fix)
+
+## Railway Deployment (2026-09-21)
+
+- Live URL: `https://portfolio-website-production-d71d.up.railway.app`
+- Railway project: `portfolio-website` (workspace `sarven123's Projects`), service `portfolio-website`, GitHub-connected to `Sarven123/portfolio-website` branch `main` — same pattern as the `news-digest` Railway project, so every push to `main` auto-redeploys.
+- This is a static Vite SPA (no backend), unlike news-digest's Node server. Deploy shape: `railway.json` sets `buildCommand: npm run build`; `npm start` runs `serve -s dist -l $PORT` (added the `serve` package as a dependency for this).
+- Had to pin `"engines": { "node": ">=22.12.0" }` in `package.json` — Railway's Nixpacks defaulted to Node 18, and Vite 8 requires Node ^20.19 or >=22.12; first deploy failed on a `node:util` `styleText` import error until this was added.
+- `railway.json` (Config as Code) is flagged deprecated in favor of `.railway/railway.ts` (Infrastructure as Code), but still supported until 2026-12-01 — left as-is to match news-digest's existing setup rather than migrating both now.
 
 ## Public-Visibility Security Review (2026-09-19)
 
@@ -87,7 +95,7 @@ Before making the repo public, ran a full audit — result: **clean, no changes 
 ## Known Constraints & Style Rules
 
 - No TypeScript — plain `.jsx`/`.js` only.
-- No backend, auth, database, or deployment — local dev only.
+- No backend, auth, or database — still a static frontend, just deployed (Railway, see above) rather than local-only.
 - Don't add abstractions/refactors beyond what's asked; e.g., Header/Footer's small duplicated centering CSS was left as-is rather than extracted.
 - Git workflow (standing rule, see `[[portfolio-git-workflow]]` memory): checkpoint commit before each phase, commit+push after each completed phase, never destructive git commands without explicit approval, never commit secrets/`.env`/`node_modules`. Repo is now public (as of 2026-09-19, after a clean security review) — no code/design changes to accommodate that beyond the review itself.
 
