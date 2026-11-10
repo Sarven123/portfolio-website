@@ -67,7 +67,7 @@ Code is complete, linted, and building cleanly. Real `projects.js` entries (Dige
 
 ## Railway Deployment (2026-09-21)
 
-- Live URL: `https://portfolio-website-production-d71d.up.railway.app`
+- Live URL: `https://history-of-sarven.up.railway.app`
 - Railway project: `portfolio-website` (workspace `sarven123's Projects`), service `portfolio-website`, GitHub-connected to `Sarven123/portfolio-website` branch `main` — same pattern as the `news-digest` Railway project, so every push to `main` auto-redeploys.
 - This is a static Vite SPA (no backend), unlike news-digest's Node server. Deploy shape: `railway.json` sets `buildCommand: npm run build`; `npm start` runs `serve -s dist -l $PORT` (added the `serve` package as a dependency for this).
 - Had to pin `"engines": { "node": ">=22.12.0" }` in `package.json` — Railway's Nixpacks defaulted to Node 18, and Vite 8 requires Node ^20.19 or >=22.12; first deploy failed on a `node:util` `styleText` import error until this was added.
