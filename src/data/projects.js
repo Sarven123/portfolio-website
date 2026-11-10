@@ -3,6 +3,17 @@
 // at a file in /public (e.g. "/projects/project-one.jpg") once you have one.
 export const projects = [
   {
+    id: 'dsh-feedback',
+    title: 'DSH Feedback',
+    description:
+      'A German writing checker for DSH exam preparation. Submit your text, or a photo of handwriting, and get feedback on grammar, spelling, vocabulary and structure. Not an official DSH grading.',
+    tags: [],
+    image: null,
+    link: 'https://dshfeedback.up.railway.app/',
+    repo: null,
+    featured: true,
+  },
+  {
     id: 'digest-news',
     title: 'Digest News',
     description:
