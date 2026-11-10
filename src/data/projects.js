@@ -8,7 +8,7 @@ export const projects = [
     description:
       'A German writing checker for DSH exam preparation. Submit your text, or a photo of handwriting, and get feedback on grammar, spelling, vocabulary and structure. Not an official DSH grading.',
     tags: [],
-    image: null,
+    image: '/projects/dsh-feedback.jpg',
     link: 'https://dshfeedback.up.railway.app/',
     repo: null,
     featured: true,
