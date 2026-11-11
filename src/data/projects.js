@@ -4,7 +4,7 @@
 export const projects = [
   {
     id: 'dsh-feedback',
-    title: 'DSH Feedback',
+    title: 'German Writing Feedback',
     description:
       'A German writing checker for DSH exam preparation. Submit your text, or a photo of handwriting, and get feedback on grammar, spelling, vocabulary and structure. Not an official DSH grading.',
     tags: [],
